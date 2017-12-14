@@ -5,15 +5,19 @@
   
 
   
-  <title>Sean&#39;s Blog</title>
+  <title>Django-ORM-ManyToManyField | Sean&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Sean&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="创建models123456789101112class Boy(models.Model):    username = models.CharField(max_length=16)    # girls    def __str__(self):        return str(self.id)class Girl(models.Model):    name = models.Char">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django-ORM-ManyToManyField">
+<meta property="og:url" content="http://yoursite.com/2017/12/14/Django-ORM-ManyToManyField/index.html">
 <meta property="og:site_name" content="Sean&#39;s Blog">
+<meta property="og:description" content="创建models123456789101112class Boy(models.Model):    username = models.CharField(max_length=16)    # girls    def __str__(self):        return str(self.id)class Girl(models.Model):    name = models.Char">
 <meta property="og:locale" content="zh-hans">
+<meta property="og:updated_time" content="2017-12-14T14:55:38.930Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sean&#39;s Blog">
+<meta name="twitter:title" content="Django-ORM-ManyToManyField">
+<meta name="twitter:description" content="创建models123456789101112class Boy(models.Model):    username = models.CharField(max_length=16)    # girls    def __str__(self):        return str(self.id)class Girl(models.Model):    name = models.Char">
   
     <link rel="alternate" href="/atom.xml" title="Sean&#39;s Blog" type="application/atom+xml">
   
@@ -60,9 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Django-ORM-ManyToManyField" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Django-ORM-ManyToManyField" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/12/14/Django-ORM-ManyToManyField/" class="article-date">
   <time datetime="2017-12-14T14:34:54.000Z" itemprop="datePublished">2017-12-14</time>
@@ -79,8 +81,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/14/Django-ORM-ManyToManyField/">Django-ORM-ManyToManyField</a>
+    <h1 class="article-title" itemprop="name">
+      Django-ORM-ManyToManyField
     </h1>
   
 
@@ -103,86 +105,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-使用hexo和github构建自己的博客" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/12/14/使用hexo和github构建自己的博客/" class="article-date">
-  <time datetime="2017-12-14T14:17:31.000Z" itemprop="datePublished">2017-12-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/14/使用hexo和github构建自己的博客/">使用hexo和github构建自己的博客</a>
-    </h1>
+    <a href="/2017/12/14/使用hexo和github构建自己的博客/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">使用hexo和github构建自己的博客</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo中文文档</a></p>
-<h2 id="Install-Hexo"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</h2><ol>
-<li><p>Install Git</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for mac</span></span><br><span class="line">$ brew install git</span><br><span class="line"><span class="comment"># for centos</span></span><br><span class="line">$ sudo yum install git-core</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Install Node.js</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install nvm firstly</span></span><br><span class="line">$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br><span class="line"><span class="comment"># reboot terminal and install nodejs with nvm</span></span><br><span class="line">$ nvm install stable</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Install Hexo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="Init-Blog-Project"><a href="#Init-Blog-Project" class="headerlink" title="Init Blog Project"></a>Init Blog Project</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<h2 id="Config-Github"><a href="#Config-Github" class="headerlink" title="Config Github"></a>Config Github</h2><ol>
-<li>create a new repository,set repository name to “&lt;githubname&gt;.github.io” strictly.</li>
-<li><p>generate ssh key</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></span><br><span class="line">$ <span class="built_in">cd</span> ~/.ssh</span><br><span class="line">$ cat id_rsa.pub</span><br><span class="line">show &lt;ssh key content&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Enter the settings of repository,copy ssh key which just be generated to “deploy keys” in order to ensure you deploy blog to github directly.</p>
-</li>
-<li>To verify whether adding key is success.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="Config-Blog-Project"><a href="#Config-Blog-Project" class="headerlink" title="Config Blog Project"></a>Config Blog Project</h2><ol>
-<li><p>modify _config.yml</p>
-<figure class="highlight bash"><figcaption><span>_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	<span class="built_in">type</span>: git</span><br><span class="line">    repo: http://github.com/&lt;githubname&gt;/&lt;githubname&gt;.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>install deploy tool</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="Local-Preview"><a href="#Local-Preview" class="headerlink" title="Local Preview"></a>Local Preview</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>open browser and enter: <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></p>
-<h2 id="Deploy-to-github"><a href="#Deploy-to-github" class="headerlink" title="Deploy to github"></a>Deploy to github</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>open browser and enter: <a href="http://&lt;githubname&gt;.github.io" target="_blank" rel="noopener">http://&lt;githubname&gt;.github.io</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/14/使用hexo和github构建自己的博客/" data-id="cjb6ojsz700004lxusnn5csnc" class="article-share-link">Compartir</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
