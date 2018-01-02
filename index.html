@@ -355,7 +355,7 @@
           <p>Django默认提供多种字段类型，如CharField，BooleanField等，也可以扩展字段类型；</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/02/Django-Model-Field-Types/#espandi" rel="contents">
+            <a class="btn" href="/2018/01/02/Django-Model-Field-Types/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -512,7 +512,7 @@
           <p>所有字段都可以通过选项进行约束和控制<br><figure class="highlight python"><figcaption><span>models.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Content</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    title = models.CharField(_(<span class="string">'Title'</span>), max_length=<span class="number">500</span>)</span><br><span class="line">    description = models.TextField(_(<span class="string">'Description'</span>), blank=<span class="keyword">True</span>)</span><br><span class="line">    created_at = models.DateTimeField(_(<span class="string">'Created At'</span>), null=<span class="keyword">True</span>, editable=<span class="keyword">False</span>, default=timezone.now)</span><br><span class="line">    author = models.ForeignKey(User, verbose_name=_(<span class="string">'Author'</span>), related_name=<span class="string">'posted_articles'</span>, null=<span class="keyword">True</span>)</span><br><span class="line">    source_name = models.CharField(_(<span class="string">'Article Source'</span>), null=<span class="keyword">True</span>, blank=<span class="keyword">True</span>, default=<span class="string">''</span>, max_length=<span class="number">100</span>,</span><br><span class="line">                                   help_text=_(<span class="string">'Input source of the article, e.g. 39health, for App showcasing.'</span>))</span><br><span class="line">    review_status = models.IntegerField(_(<span class="string">'Review Status'</span>),</span><br><span class="line">                                        choices=REVIEW_STATUS_CHOICES, default=REVIEW_STATUS.NOT_YET)</span><br><span class="line">    reviewer = models.ForeignKey(User, verbose_name=_(<span class="string">'Reviewer'</span>), related_name=<span class="string">'reviewed_articles'</span>, null=<span class="keyword">True</span>)</span><br><span class="line">    reviewed_at = models.DateTimeField(_(<span class="string">'Reviewed At'</span>), null=<span class="keyword">True</span>, editable=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/02/Django-Model-Field-Options/#espandi" rel="contents">
+            <a class="btn" href="/2018/01/02/Django-Model-Field-Options/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -690,7 +690,7 @@
 </ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/01/Notes《系统架构设计师-希赛》（一）计算机组成与体系结构/#espandi" rel="contents">
+            <a class="btn" href="/2018/01/01/Notes《系统架构设计师-希赛》（一）计算机组成与体系结构/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -852,7 +852,7 @@
 </ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/28/Django-Model-Inheritance/#espandi" rel="contents">
+            <a class="btn" href="/2017/12/28/Django-Model-Inheritance/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1009,7 +1009,7 @@
           <p><a href="http://django-debug-toolbar.readthedocs.io/en/stable/" target="_blank" rel="noopener">Django Debug Toolbar</a>绝对是Django开发如虎添翼包，之前有个页面刷新特别慢，看过源码，用chrome检查过元素，定位，查找，累的半死也没查到原因。偶然发现了这个工具，简单配置一下就能使用。刷新页面后列出了所有页面的query，哪里慢一目了然。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/27/Django-Web-调试工具debug-toolbar/#espandi" rel="contents">
+            <a class="btn" href="/2017/12/27/Django-Web-调试工具debug-toolbar/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1172,7 +1172,7 @@
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">postgres-$ <span class="keyword">create</span> extension hstore;</span><br><span class="line"><span class="keyword">CREATE</span> EXTENSION</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/26/PostgreSQL中使用hstore存储键值对数据/#espandi" rel="contents">
+            <a class="btn" href="/2017/12/26/PostgreSQL中使用hstore存储键值对数据/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1341,7 +1341,7 @@
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/24/Django-Permissions/#espandi" rel="contents">
+            <a class="btn" href="/2017/12/24/Django-Permissions/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1498,7 +1498,7 @@
           <p>最近看梯度下降时，发现一些常用导数都不记得了，还是记录一下，顺便练练LaTeX。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/22/常用导数公式汇总/#espandi" rel="contents">
+            <a class="btn" href="/2017/12/22/常用导数公式汇总/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1656,7 +1656,7 @@
 <figure class="highlight python"><figcaption><span>models.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Keyword</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    title = models.CharField(_(<span class="string">'Keyword'</span>), blank=<span class="keyword">True</span>, unique=<span class="keyword">True</span>, max_length=<span class="number">500</span>)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        verbose_name = _(<span class="string">'Keyword'</span>)</span><br><span class="line">        verbose_name_plural = _(<span class="string">'Keyword'</span>)</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/20/Django-Model-Meta/#espandi" rel="contents">
+            <a class="btn" href="/2017/12/20/Django-Model-Meta/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1823,7 +1823,7 @@
 <p><strong>用Q()来解决</strong></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/20/Django-ORM-F-Q/#espandi" rel="contents">
+            <a class="btn" href="/2017/12/20/Django-ORM-F-Q/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
