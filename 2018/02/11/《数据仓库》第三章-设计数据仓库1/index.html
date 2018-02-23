@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,Github,Blog," />
+  <meta name="keywords" content="Data Warehouse," />
 
 
 
@@ -79,18 +79,22 @@
 
 
 
-<meta name="description" content="搭建博客后的首篇文章自然是要总结一下搭建流程啦!后续还会记录优化博客的相关事宜">
-<meta name="keywords" content="Hexo,Github,Blog">
+<meta name="description" content="建造数据仓库主要包括两个部分的工作:  与操作型系统结构的设计 数据仓库本身的设计  3.1 从操作型数据开始抽取过程面临的4个问题：集成、性能、抽取过程经历的时基变化、数据压缩将未经集成的数据载入到数据仓库是一个极端严重的错误，从操作型环境到数据仓库有三种装载工作要做：  装载档案数据 装载在操作型系统中的现有数据 将上次数据仓库刷新以来在操作型环境中不断发生的变化（更新）从操作型环境中装载到">
+<meta name="keywords" content="Data Warehouse">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用hexo和github构建自己的博客">
-<meta property="og:url" content="http://yoursite.com/2017/12/14/使用hexo和github构建自己的博客/index.html">
+<meta property="og:title" content="《数据仓库》第三章-设计数据仓库1">
+<meta property="og:url" content="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/index.html">
 <meta property="og:site_name" content="Sean&#39;s Notes">
-<meta property="og:description" content="搭建博客后的首篇文章自然是要总结一下搭建流程啦!后续还会记录优化博客的相关事宜">
+<meta property="og:description" content="建造数据仓库主要包括两个部分的工作:  与操作型系统结构的设计 数据仓库本身的设计  3.1 从操作型数据开始抽取过程面临的4个问题：集成、性能、抽取过程经历的时基变化、数据压缩将未经集成的数据载入到数据仓库是一个极端严重的错误，从操作型环境到数据仓库有三种装载工作要做：  装载档案数据 装载在操作型系统中的现有数据 将上次数据仓库刷新以来在操作型环境中不断发生的变化（更新）从操作型环境中装载到">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-15T16:13:35.283Z">
+<meta property="og:image" content="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/images/IMG_1014.PNG">
+<meta property="og:image" content="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/images/sjck314.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/images/sjck316.png">
+<meta property="og:updated_time" content="2018-02-23T09:01:37.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用hexo和github构建自己的博客">
-<meta name="twitter:description" content="搭建博客后的首篇文章自然是要总结一下搭建流程啦!后续还会记录优化博客的相关事宜">
+<meta name="twitter:title" content="《数据仓库》第三章-设计数据仓库1">
+<meta name="twitter:description" content="建造数据仓库主要包括两个部分的工作:  与操作型系统结构的设计 数据仓库本身的设计  3.1 从操作型数据开始抽取过程面临的4个问题：集成、性能、抽取过程经历的时基变化、数据压缩将未经集成的数据载入到数据仓库是一个极端严重的错误，从操作型环境到数据仓库有三种装载工作要做：  装载档案数据 装载在操作型系统中的现有数据 将上次数据仓库刷新以来在操作型环境中不断发生的变化（更新）从操作型环境中装载到">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/images/IMG_1014.PNG">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/14/使用hexo和github构建自己的博客/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/"/>
 
 
 
 
 
-  <title>使用hexo和github构建自己的博客 | Sean's Notes</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>《数据仓库》第三章-设计数据仓库1 | Sean's Notes</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -253,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/14/使用hexo和github构建自己的博客/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sean Liu">
@@ -270,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用hexo和github构建自己的博客</h1>
+          <h1 class="post-title" itemprop="name headline">《数据仓库》第三章-设计数据仓库1</h1>
         
 
         <div class="post-meta">
@@ -282,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-14T22:17:31+08:00">
-                2017-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-11T23:41:26+08:00">
+                2018-02-11
               </time>
             
 
@@ -305,8 +309,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
+                  <a href="/categories/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/《数据仓库》/" itemprop="url" rel="index">
+                    <span itemprop="name">《数据仓库》</span>
                   </a>
                 </span>
 
@@ -347,43 +362,49 @@
       
 
       
-        <p>搭建博客后的首篇文章自然是要总结一下搭建流程啦!后续还会记录优化博客的相关事宜</p>
-<a id="more"></a>
-<p><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo中文文档</a></p>
-<h2 id="Install-Hexo"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</h2><ol>
-<li><p>Install Git</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for mac</span></span><br><span class="line">$ brew install git</span><br><span class="line"><span class="comment"># for centos</span></span><br><span class="line">$ sudo yum install git-core</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Install Node.js</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install nvm firstly</span></span><br><span class="line">$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br><span class="line"><span class="comment"># reboot terminal and install nodejs with nvm</span></span><br><span class="line">$ nvm install stable</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Install Hexo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-</li>
+        <p><img src="images/IMG_1014.PNG" alt=""></p>
+<p>建造数据仓库主要包括两个部分的工作:</p>
+<ol>
+<li>与操作型系统结构的设计</li>
+<li>数据仓库本身的设计</li>
 </ol>
-<h2 id="Init-Blog-Project"><a href="#Init-Blog-Project" class="headerlink" title="Init Blog Project"></a>Init Blog Project</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<h2 id="Config-Github"><a href="#Config-Github" class="headerlink" title="Config Github"></a>Config Github</h2><ol>
-<li>create a new repository,set repository name to “&lt;githubname&gt;.github.io” strictly.</li>
-<li><p>generate ssh key</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></span><br><span class="line">$ <span class="built_in">cd</span> ~/.ssh</span><br><span class="line">$ cat id_rsa.pub</span><br><span class="line">show &lt;ssh key content&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Enter the settings of repository,copy ssh key which just be generated to “deploy keys” in order to ensure you deploy blog to github directly.</p>
-</li>
-<li>To verify whether adding key is success.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-</li>
+<h2 id="3-1-从操作型数据开始"><a href="#3-1-从操作型数据开始" class="headerlink" title="3.1 从操作型数据开始"></a>3.1 从操作型数据开始</h2><p>抽取过程面临的4个问题：集成、性能、抽取过程经历的时基变化、数据压缩<br>将未经集成的数据载入到数据仓库是一个极端严重的错误，从操作型环境到数据仓库有三种装载工作要做：</p>
+<ol>
+<li>装载档案数据</li>
+<li>装载在操作型系统中的现有数据</li>
+<li>将上次数据仓库刷新以来在操作型环境中不断发生的变化（更新）从操作型环境中装载到数据仓库中<br>前两种装载工作都是一次性的，并不困难，第三种工作则是常态的，而限制扫描的操作型数据量是设计者面对的主要问题。<br>共有5种技术可以采用：</li>
+<li>扫描在操作型环境中哪些被打伤<strong>时间戳</strong>的数据。但带有时间戳的数据很少，或需要手工加入到操作型环境中。</li>
+<li>扫描<strong>增量文件</strong>。但很少应用创建增量文件。</li>
+<li>对作为事务处理的副产品产生的<strong>日志文件或审计文件</strong>进行扫描。</li>
+<li>修改应用程序代码。但很多应用程序的代码陈旧且不易修改。</li>
+<li>将一个“前”映像文件和一个“后”映像文件进行比较。这是最可怕的选择。</li>
 </ol>
-<h2 id="Config-Blog-Project"><a href="#Config-Blog-Project" class="headerlink" title="Config Blog Project"></a>Config Blog Project</h2><ol>
-<li><p>modify _config.yml</p>
-<figure class="highlight bash"><figcaption><span>_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	<span class="built_in">type</span>: git</span><br><span class="line">    repo: http://github.com/&lt;githubname&gt;/&lt;githubname&gt;.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>install deploy tool</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-</li>
+<h2 id="3-2-数据-过程模型与体系结构化环境"><a href="#3-2-数据-过程模型与体系结构化环境" class="headerlink" title="3.2 数据/过程模型与体系结构化环境"></a>3.2 数据/过程模型与体系结构化环境</h2><p><strong>过程模型</strong>是需求驱动的，仅适用于操作型环境。包括功能分解、第零层上下文图、数据流图、结构图、状态转换图、HIPO图、伪代码。<br><strong>数据模型</strong>即可用于操作型环境，又可用于数据仓库环境</p>
+<h2 id="3-3-数据仓库与数据模型"><a href="#3-3-数据仓库与数据模型" class="headerlink" title="3.3 数据仓库与数据模型"></a>3.3 数据仓库与数据模型</h2><h4 id="企业数据模型-gt-操作型数据模型："><a href="#企业数据模型-gt-操作型数据模型：" class="headerlink" title="企业数据模型 -&gt; 操作型数据模型："></a>企业数据模型 -&gt; 操作型数据模型：</h4><ol>
+<li>基本等价</li>
+<li>加入性能因素</li>
 </ol>
-<h2 id="Local-Preview"><a href="#Local-Preview" class="headerlink" title="Local Preview"></a>Local Preview</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>open browser and enter: <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></p>
-<h2 id="Deploy-to-github"><a href="#Deploy-to-github" class="headerlink" title="Deploy to github"></a>Deploy to github</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>open browser and enter: <a href="http://&lt;githubname&gt;.github.io" target="_blank" rel="noopener">http://&lt;githubname&gt;.github.io</a></p>
+<h4 id="企业数据模型-gt-数据仓库数据模型"><a href="#企业数据模型-gt-数据仓库数据模型" class="headerlink" title="企业数据模型 -&gt; 数据仓库数据模型"></a>企业数据模型 -&gt; 数据仓库数据模型</h4><ol>
+<li>去掉纯操作型数据</li>
+<li>关键字中加入时间元素</li>
+<li>合适之处增加导出数据</li>
+<li>创建人工关系</li>
+<li><strong>稳定性分析</strong>，根据各个数据属性是否经常变化的特性将这些属性分组(很少改变，不时改变，经常改变)</li>
+</ol>
+<h4 id="3-3-1-数据仓库的数据模型"><a href="#3-3-1-数据仓库的数据模型" class="headerlink" title="3.3.1 数据仓库的数据模型"></a>3.3.1 数据仓库的数据模型</h4><p>数据建模分为三个层次：</p>
+<ol>
+<li>高额那个建模（实体关系图，或ERD）</li>
+<li>中间层建模（数据项集，或DIS）</li>
+<li>底层建模（物理模型）</li>
+</ol>
+<h4 id="3-3-2-中间层数据建模"><a href="#3-3-2-中间层数据建模" class="headerlink" title="3.3.2 中间层数据建模"></a>3.3.2 中间层数据建模</h4><p><img src="images/sjck314.png" alt=""></p>
+<ol>
+<li>主要数据分组：每个主题域有且仅有一个主要数据分组，包含了对每个主题域只存在一次的属性。</li>
+<li>二级数据分组：包含每个主题域可以存在多次的数据属性。</li>
+<li>连接器：标识两个主题域间的数据关系，在ERD层确定的每一个关系在DIS层必须有与其对应的连接器。</li>
+<li>数据的“类型”：左边的数据分组是超类型，右边的数据分组是子类型。<br>如：<br><img src="images/sjck316.png" alt=""></li>
+</ol>
+<h4 id="3-3-3-物理数据模型"><a href="#3-3-3-物理数据模型" class="headerlink" title="3.3.3 物理数据模型"></a>3.3.3 物理数据模型</h4><p>通过扩展中间层模型，使模型中包含有关键字和物理特性。为了保证执行一次物理IO能返回最大数量的记录，可以采用一些在数据经常需要更新的情况下不能接受的物理设计技术。</p>
 
       
     </div>
@@ -401,11 +422,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
-          
-            <a href="/tags/Github/" rel="tag"># Github</a>
-          
-            <a href="/tags/Blog/" rel="tag"># Blog</a>
+            <a href="/tags/Data-Warehouse/" rel="tag"># Data Warehouse</a>
           
         </div>
       
@@ -418,15 +435,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/02/09/《数据仓库》第二章-数据仓库环境/" rel="next" title="《数据仓库》第二章-数据仓库环境">
+                <i class="fa fa-chevron-left"></i> 《数据仓库》第二章-数据仓库环境
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/14/Django-ORM-ManyToManyField/" rel="prev" title="Django-ORM-ManyToManyField">
-                Django-ORM-ManyToManyField <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -562,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-Hexo"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Init-Blog-Project"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Init-Blog-Project" class="headerlink" title="Init Blog Project"></a>Init Blog Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Config-Github"><span class="nav-number">3.</span> <span class="nav-text"><a href="#Config-Github" class="headerlink" title="Config Github"></a>Config Github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Config-Blog-Project"><span class="nav-number">4.</span> <span class="nav-text"><a href="#Config-Blog-Project" class="headerlink" title="Config Blog Project"></a>Config Blog Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Local-Preview"><span class="nav-number">5.</span> <span class="nav-text"><a href="#Local-Preview" class="headerlink" title="Local Preview"></a>Local Preview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deploy-to-github"><span class="nav-number">6.</span> <span class="nav-text"><a href="#Deploy-to-github" class="headerlink" title="Deploy to github"></a>Deploy to github</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-从操作型数据开始"><span class="nav-number">1.</span> <span class="nav-text"><a href="#3-1-&#x4ECE;&#x64CD;&#x4F5C;&#x578B;&#x6570;&#x636E;&#x5F00;&#x59CB;" class="headerlink" title="3.1 &#x4ECE;&#x64CD;&#x4F5C;&#x578B;&#x6570;&#x636E;&#x5F00;&#x59CB;"></a>3.1 &#x4ECE;&#x64CD;&#x4F5C;&#x578B;&#x6570;&#x636E;&#x5F00;&#x59CB;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-数据-过程模型与体系结构化环境"><span class="nav-number">2.</span> <span class="nav-text"><a href="#3-2-&#x6570;&#x636E;-&#x8FC7;&#x7A0B;&#x6A21;&#x578B;&#x4E0E;&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x5316;&#x73AF;&#x5883;" class="headerlink" title="3.2 &#x6570;&#x636E;/&#x8FC7;&#x7A0B;&#x6A21;&#x578B;&#x4E0E;&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x5316;&#x73AF;&#x5883;"></a>3.2 &#x6570;&#x636E;/&#x8FC7;&#x7A0B;&#x6A21;&#x578B;&#x4E0E;&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x5316;&#x73AF;&#x5883;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-数据仓库与数据模型"><span class="nav-number">3.</span> <span class="nav-text"><a href="#3-3-&#x6570;&#x636E;&#x4ED3;&#x5E93;&#x4E0E;&#x6570;&#x636E;&#x6A21;&#x578B;" class="headerlink" title="3.3 &#x6570;&#x636E;&#x4ED3;&#x5E93;&#x4E0E;&#x6570;&#x636E;&#x6A21;&#x578B;"></a>3.3 &#x6570;&#x636E;&#x4ED3;&#x5E93;&#x4E0E;&#x6570;&#x636E;&#x6A21;&#x578B;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#企业数据模型-gt-操作型数据模型："><span class="nav-number">3.0.1.</span> <span class="nav-text"><a href="#&#x4F01;&#x4E1A;&#x6570;&#x636E;&#x6A21;&#x578B;-gt-&#x64CD;&#x4F5C;&#x578B;&#x6570;&#x636E;&#x6A21;&#x578B;&#xFF1A;" class="headerlink" title="&#x4F01;&#x4E1A;&#x6570;&#x636E;&#x6A21;&#x578B; -&gt; &#x64CD;&#x4F5C;&#x578B;&#x6570;&#x636E;&#x6A21;&#x578B;&#xFF1A;"></a>&#x4F01;&#x4E1A;&#x6570;&#x636E;&#x6A21;&#x578B; -&gt; &#x64CD;&#x4F5C;&#x578B;&#x6570;&#x636E;&#x6A21;&#x578B;&#xFF1A;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#企业数据模型-gt-数据仓库数据模型"><span class="nav-number">3.0.2.</span> <span class="nav-text"><a href="#&#x4F01;&#x4E1A;&#x6570;&#x636E;&#x6A21;&#x578B;-gt-&#x6570;&#x636E;&#x4ED3;&#x5E93;&#x6570;&#x636E;&#x6A21;&#x578B;" class="headerlink" title="&#x4F01;&#x4E1A;&#x6570;&#x636E;&#x6A21;&#x578B; -&gt; &#x6570;&#x636E;&#x4ED3;&#x5E93;&#x6570;&#x636E;&#x6A21;&#x578B;"></a>&#x4F01;&#x4E1A;&#x6570;&#x636E;&#x6A21;&#x578B; -&gt; &#x6570;&#x636E;&#x4ED3;&#x5E93;&#x6570;&#x636E;&#x6A21;&#x578B;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-数据仓库的数据模型"><span class="nav-number">3.0.3.</span> <span class="nav-text"><a href="#3-3-1-&#x6570;&#x636E;&#x4ED3;&#x5E93;&#x7684;&#x6570;&#x636E;&#x6A21;&#x578B;" class="headerlink" title="3.3.1 &#x6570;&#x636E;&#x4ED3;&#x5E93;&#x7684;&#x6570;&#x636E;&#x6A21;&#x578B;"></a>3.3.1 &#x6570;&#x636E;&#x4ED3;&#x5E93;&#x7684;&#x6570;&#x636E;&#x6A21;&#x578B;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-中间层数据建模"><span class="nav-number">3.0.4.</span> <span class="nav-text"><a href="#3-3-2-&#x4E2D;&#x95F4;&#x5C42;&#x6570;&#x636E;&#x5EFA;&#x6A21;" class="headerlink" title="3.3.2 &#x4E2D;&#x95F4;&#x5C42;&#x6570;&#x636E;&#x5EFA;&#x6A21;"></a>3.3.2 &#x4E2D;&#x95F4;&#x5C42;&#x6570;&#x636E;&#x5EFA;&#x6A21;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-3-物理数据模型"><span class="nav-number">3.0.5.</span> <span class="nav-text"><a href="#3-3-3-&#x7269;&#x7406;&#x6570;&#x636E;&#x6A21;&#x578B;" class="headerlink" title="3.3.3 &#x7269;&#x7406;&#x6570;&#x636E;&#x6A21;&#x578B;"></a>3.3.3 &#x7269;&#x7406;&#x6570;&#x636E;&#x6A21;&#x578B;</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
