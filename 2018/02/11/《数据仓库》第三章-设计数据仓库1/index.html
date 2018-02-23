@@ -88,9 +88,9 @@
 <meta property="og:description" content="建造数据仓库主要包括两个部分的工作:  与操作型系统结构的设计 数据仓库本身的设计">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/images/IMG_1014.PNG">
-<meta property="og:image" content="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/images/数据仓库/sjck314.png">
-<meta property="og:image" content="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/images/数据仓库/sjck316.png">
-<meta property="og:updated_time" content="2018-02-23T11:53:29.225Z">
+<meta property="og:image" content="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/images/DW/sjck314.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/11/《数据仓库》第三章-设计数据仓库1/images/DW/sjck316.png">
+<meta property="og:updated_time" content="2018-02-23T12:37:03.987Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《数据仓库》第三章-设计数据仓库1">
 <meta name="twitter:description" content="建造数据仓库主要包括两个部分的工作:  与操作型系统结构的设计 数据仓库本身的设计">
@@ -398,12 +398,12 @@
 <li>中间层建模（数据项集，或DIS）</li>
 <li>底层建模（物理模型）</li>
 </ol>
-<h4 id="3-3-2-中间层数据建模"><a href="#3-3-2-中间层数据建模" class="headerlink" title="3.3.2 中间层数据建模"></a>3.3.2 中间层数据建模</h4><p><img src="images/数据仓库/sjck314.png" alt=""></p>
+<h4 id="3-3-2-中间层数据建模"><a href="#3-3-2-中间层数据建模" class="headerlink" title="3.3.2 中间层数据建模"></a>3.3.2 中间层数据建模</h4><p><img src="images/DW/sjck314.png" alt=""></p>
 <ol>
 <li>主要数据分组：每个主题域有且仅有一个主要数据分组，包含了对每个主题域只存在一次的属性。</li>
 <li>二级数据分组：包含每个主题域可以存在多次的数据属性。</li>
 <li>连接器：标识两个主题域间的数据关系，在ERD层确定的每一个关系在DIS层必须有与其对应的连接器。</li>
-<li>数据的“类型”：左边的数据分组是超类型，右边的数据分组是子类型。<br>如：<br><img src="images/数据仓库/sjck316.png" alt=""></li>
+<li>数据的“类型”：左边的数据分组是超类型，右边的数据分组是子类型。<br>如：<br><img src="images/DW/sjck316.png" alt=""></li>
 </ol>
 <h4 id="3-3-3-物理数据模型"><a href="#3-3-3-物理数据模型" class="headerlink" title="3.3.3 物理数据模型"></a>3.3.3 物理数据模型</h4><p>通过扩展中间层模型，使模型中包含有关键字和物理特性。为了保证执行一次物理IO能返回最大数量的记录，可以采用一些在数据经常需要更新的情况下不能接受的物理设计技术。</p>
 <h2 id="3-4-数据模型与迭代开发"><a href="#3-4-数据模型与迭代开发" class="headerlink" title="3.4 数据模型与迭代开发"></a>3.4 数据模型与迭代开发</h2><ul>
