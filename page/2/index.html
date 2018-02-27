@@ -249,6 +249,293 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/23/Django-ORM-RawSQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sean Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sean's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/23/Django-ORM-RawSQL/" itemprop="url">Django-ORM-RawSQL</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-23T17:47:17+08:00">
+                2018-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>对于复杂的查询，可能出现API不够用的情况，Django提供rawsql查询<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Manager.raw(raw_query, params=<span class="keyword">None</span>, translations=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="将长训字段映射到模型字段"><a href="#将长训字段映射到模型字段" class="headerlink" title="将长训字段映射到模型字段"></a>将长训字段映射到模型字段</h3><p>可以使用rawsql把某个表的数据映射到一个model上，要求字段名要映射一致<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    first_name = models.CharField(...)</span><br><span class="line">    last_name = models.CharField(...)</span><br><span class="line">    birth_date = models.DateField(...)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Person.objects.raw(<span class="string">'SELECT id, first_name, last_name, birth_date FROM myapp_person'</span>)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Person.objects.raw(<span class="string">'''SELECT first AS first_name,</span></span><br><span class="line"><span class="string"><span class="meta">... </span>                             last AS last_name,</span></span><br><span class="line"><span class="string"><span class="meta">... </span>                             bd AS birth_date,</span></span><br><span class="line"><span class="string"><span class="meta">... </span>                             pk AS id,</span></span><br><span class="line"><span class="string"><span class="meta">... </span>                      FROM some_other_table'''</span>)</span><br></pre></td></tr></table></figure></p>
+<p>sql语句中的字段顺序不重要，与返回结果无关<br>可以使用raw()方法中的reanslations参数做字段映射：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>name_map = &#123;<span class="string">'first'</span>: <span class="string">'first_name'</span>, <span class="string">'last'</span>: <span class="string">'last_name'</span>, <span class="string">'bd'</span>: <span class="string">'birth_date'</span>, <span class="string">'pk'</span>: <span class="string">'id'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Person.objects.raw(<span class="string">'SELECT * FROM some_other_table'</span>, translations=name_map)</span><br></pre></td></tr></table></figure></p>
+<h3 id="索引和切片"><a href="#索引和切片" class="headerlink" title="索引和切片"></a>索引和切片</h3><p>raw()支持索引和切片，但不是在数据库层面上操作，最好使用limit限制在sql语句中</p>
+<h3 id="延迟模型字段"><a href="#延迟模型字段" class="headerlink" title="延迟模型字段"></a>延迟模型字段</h3><p>sql中可以省略字段，如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> p <span class="keyword">in</span> Person.objects.raw(<span class="string">'SELECT id, first_name FROM myapp_person'</span>):</span><br><span class="line"><span class="meta">... </span>    print(p.first_name, <span class="comment"># 这将在开始的查询获取到</span></span><br><span class="line"><span class="meta">... </span>          p.last_name) <span class="comment"># 这将根据需要获取</span></span><br><span class="line">...</span><br><span class="line">John Smith</span><br><span class="line">Jane Jones</span><br></pre></td></tr></table></figure></p>
+<p>被省略的字段也会通过查询出的model查询出来，但其实是又执行了一次query。<br>主键不能被省略，必须写在sql中</p>
+<h3 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h3><p>也可以在查询中包含模型中没有定义的字段<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>people = Person.objects.raw(<span class="string">'SELECT *, age(birth_date) AS age FROM myapp_person'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> p <span class="keyword">in</span> people:</span><br><span class="line"><span class="meta">... </span>    print(<span class="string">"%s is %s."</span> % (p.first_name, p.age))</span><br><span class="line">John <span class="keyword">is</span> <span class="number">37.</span></span><br><span class="line">Jane <span class="keyword">is</span> <span class="number">42.</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<h3 id="将参数传递给raw"><a href="#将参数传递给raw" class="headerlink" title="将参数传递给raw()"></a>将参数传递给raw()</h3><p>使用params参数可以防止注入攻击,使用占位符 %s<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>lname = <span class="string">'Doe'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Person.objects.raw(<span class="string">'SELECT * FROM myapp_person WHERE last_name = %s'</span>, [lname])</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用%(key)s,使用字典来占位</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/23/Django-manager（管理器）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sean Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sean's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/23/Django-manager（管理器）/" itemprop="url">Django-manager（管理器）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-23T09:42:48+08:00">
+                2018-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Django/" itemprop="url" rel="index">
+                    <span itemprop="name">Django</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Django/Model/" itemprop="url" rel="index">
+                    <span itemprop="name">Model</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Manager是Django的模型进行数据库查询操作的接口，每个model至少拥有一个Manager。</p>
+<h2 id="自定义Manager名称"><a href="#自定义Manager名称" class="headerlink" title="自定义Manager名称"></a>自定义Manager名称</h2><p>Django默认为每个model添加一个名为objects的Manager，可以通过下面代码修改Manager名称：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    people = models.Manager()</span><br></pre></td></tr></table></figure></p>
+<p>此后使用Person.objects会抛出异常，但可以使用Person.people.all()查询</p>
+<h2 id="添加额外的Manager"><a href="#添加额外的Manager" class="headerlink" title="添加额外的Manager"></a>添加额外的Manager</h2><p>目的是为Model增加“表级”的功能<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PollManager</span><span class="params">(models.Manager)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">with_counts</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">from</span> django.db <span class="keyword">import</span> connection</span><br><span class="line">        <span class="keyword">with</span> connection.cursor() <span class="keyword">as</span> cursor:</span><br><span class="line">            cursor.execute(<span class="string">"""</span></span><br><span class="line"><span class="string">                SELECT p.id, p.question, p.poll_date, COUNT(*)</span></span><br><span class="line"><span class="string">                FROM polls_opinionpoll p, polls_response r</span></span><br><span class="line"><span class="string">                WHERE p.id = r.poll_id</span></span><br><span class="line"><span class="string">                GROUP BY p.id, p.question, p.poll_date</span></span><br><span class="line"><span class="string">                ORDER BY p.poll_date DESC"""</span>)</span><br><span class="line">            result_list = []</span><br><span class="line">            <span class="keyword">for</span> row <span class="keyword">in</span> cursor.fetchall():</span><br><span class="line">                p = self.model(id=row[<span class="number">0</span>], question=row[<span class="number">1</span>], poll_date=row[<span class="number">2</span>])</span><br><span class="line">                p.num_responses = row[<span class="number">3</span>]</span><br><span class="line">                result_list.append(p)</span><br><span class="line">        <span class="keyword">return</span> result_list</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OpinionPoll</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    question = models.CharField(max_length=<span class="number">200</span>)</span><br><span class="line">    poll_date = models.DateField()</span><br><span class="line">    objects = PollManager()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Response</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    poll = models.ForeignKey(OpinionPoll, on_delete=models.CASCADE)</span><br><span class="line">    person_name = models.CharField(max_length=<span class="number">50</span>)</span><br><span class="line">    response = models.TextField()</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改Manager的初始QuerySet"><a href="#修改Manager的初始QuerySet" class="headerlink" title="修改Manager的初始QuerySet"></a>修改Manager的初始QuerySet</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AuthorManager</span><span class="params">(models.Manager)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_queryset</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> super(AuthorManager, self).get_queryset().filter(role=<span class="string">'A'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EditorManager</span><span class="params">(models.Manager)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_queryset</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> super(EditorManager, self).get_queryset().filter(role=<span class="string">'E'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    first_name = models.CharField(max_length=<span class="number">50</span>)</span><br><span class="line">    last_name = models.CharField(max_length=<span class="number">50</span>)</span><br><span class="line">    role = models.CharField(max_length=<span class="number">1</span>, choices=((<span class="string">'A'</span>, _(<span class="string">'Author'</span>)), (<span class="string">'E'</span>, _(<span class="string">'Editor'</span>))))</span><br><span class="line">    people = models.Manager()</span><br><span class="line">    authors = AuthorManager()</span><br><span class="line">    editors = EditorManager()</span><br></pre></td></tr></table></figure>
+<h2 id="默认管理器"><a href="#默认管理器" class="headerlink" title="默认管理器"></a>默认管理器</h2><p>Model._defult_manager<br>如果使用自定义的Manager对象，要注意Django遇到的第一个Manager会成为默认Manager，拥有特殊地位，有些部分只能使用默认Manager.<br>可以使用Meta.default_manager_name自定义默认管理器</p>
+<h2 id="基管理器"><a href="#基管理器" class="headerlink" title="基管理器"></a>基管理器</h2><p>Mode._base_manager</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/18/日语-万门大学-Notes1-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1460,331 +1747,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/27/Django-Web-调试工具debug-toolbar/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sean Liu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sean's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/27/Django-Web-调试工具debug-toolbar/" itemprop="url">Django-Web-调试工具debug-toolbar</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-27T18:33:35+08:00">
-                2017-12-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Django/" itemprop="url" rel="index">
-                    <span itemprop="name">Django</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Django/Package/" itemprop="url" rel="index">
-                    <span itemprop="name">Package</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="http://django-debug-toolbar.readthedocs.io/en/stable/" target="_blank" rel="noopener">Django Debug Toolbar</a>绝对是Django开发如虎添翼包，之前有个页面刷新特别慢，看过源码，用chrome检查过元素，定位，查找，累的半死也没查到原因。偶然发现了这个工具，简单配置一下就能使用。刷新页面后列出了所有页面的query，哪里慢一目了然。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/27/Django-Web-调试工具debug-toolbar/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/26/PostgreSQL中使用hstore存储键值对数据/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sean Liu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sean's Notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/26/PostgreSQL中使用hstore存储键值对数据/" itemprop="url">PostgreSQL中使用hstore存储键值对数据</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-26T18:59:03+08:00">
-                2017-12-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PostgreSQL/" itemprop="url" rel="index">
-                    <span itemprop="name">PostgreSQL</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PostgreSQL/Extension/" itemprop="url" rel="index">
-                    <span itemprop="name">Extension</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Hstore 数据类型可以把键值对集合存储在PGSQL的一个单独的值中</p>
-<ul>
-<li>键值对无序存储</li>
-<li>每个键是唯一的</li>
-<li>值可以为NULL，例如：key=&gt;NULL</li>
-</ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">postgres-$ <span class="keyword">create</span> extension hstore;</span><br><span class="line"><span class="keyword">CREATE</span> EXTENSION</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/26/PostgreSQL中使用hstore存储键值对数据/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1834,7 +1801,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1845,7 +1812,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1856,7 +1823,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
