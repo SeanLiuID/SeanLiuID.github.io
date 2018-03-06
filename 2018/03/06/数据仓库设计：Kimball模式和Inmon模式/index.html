@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Django,ORM," />
+  <meta name="keywords" content="Data Warehouse," />
 
 
 
@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="ManyToManyField是一种多对多关系,默认在数据库中生成关系表,也可以指定一个表作为关系表">
-<meta name="keywords" content="Django,ORM">
+<meta name="description" content="Inmon模式Bill Inmon的经典著作是《数据仓库》-Building the Data Warehouse.他将数据仓库定义为，一个面向主题的、集成的、随时间变化的、非易变的用于支持管理的决策过程的数据集合。每个主题区域仅仅包含该主题相关的信息。数据仓库应该一次增加一个主题，并且当需要容易地访问多个主题时，应该创建以数据仓库为来源的数据集市。Inmon模式设计是自顶向下的（top down">
+<meta name="keywords" content="Data Warehouse">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Django-ORM-ManyToManyField">
-<meta property="og:url" content="http://yoursite.com/2017/12/14/Django-ORM-ManyToManyField/index.html">
+<meta property="og:title" content="数据仓库设计：Kimball模式和Inmon模式">
+<meta property="og:url" content="http://yoursite.com/2018/03/06/数据仓库设计：Kimball模式和Inmon模式/index.html">
 <meta property="og:site_name" content="Sean&#39;s Notes">
-<meta property="og:description" content="ManyToManyField是一种多对多关系,默认在数据库中生成关系表,也可以指定一个表作为关系表">
+<meta property="og:description" content="Inmon模式Bill Inmon的经典著作是《数据仓库》-Building the Data Warehouse.他将数据仓库定义为，一个面向主题的、集成的、随时间变化的、非易变的用于支持管理的决策过程的数据集合。每个主题区域仅仅包含该主题相关的信息。数据仓库应该一次增加一个主题，并且当需要容易地访问多个主题时，应该创建以数据仓库为来源的数据集市。Inmon模式设计是自顶向下的（top down">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-15T16:13:35.288Z">
+<meta property="og:image" content="http://yoursite.com/images/DW/dw_inmon.png">
+<meta property="og:image" content="http://yoursite.com/images/DW/dw_kimball.png">
+<meta property="og:updated_time" content="2018-03-06T03:50:56.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Django-ORM-ManyToManyField">
-<meta name="twitter:description" content="ManyToManyField是一种多对多关系,默认在数据库中生成关系表,也可以指定一个表作为关系表">
+<meta name="twitter:title" content="数据仓库设计：Kimball模式和Inmon模式">
+<meta name="twitter:description" content="Inmon模式Bill Inmon的经典著作是《数据仓库》-Building the Data Warehouse.他将数据仓库定义为，一个面向主题的、集成的、随时间变化的、非易变的用于支持管理的决策过程的数据集合。每个主题区域仅仅包含该主题相关的信息。数据仓库应该一次增加一个主题，并且当需要容易地访问多个主题时，应该创建以数据仓库为来源的数据集市。Inmon模式设计是自顶向下的（top down">
+<meta name="twitter:image" content="http://yoursite.com/images/DW/dw_inmon.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/14/Django-ORM-ManyToManyField/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/06/数据仓库设计：Kimball模式和Inmon模式/"/>
 
 
 
 
 
-  <title>Django-ORM-ManyToManyField | Sean's Notes</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>数据仓库设计：Kimball模式和Inmon模式 | Sean's Notes</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -253,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/14/Django-ORM-ManyToManyField/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/06/数据仓库设计：Kimball模式和Inmon模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sean Liu">
@@ -270,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Django-ORM-ManyToManyField</h1>
+          <h1 class="post-title" itemprop="name headline">数据仓库设计：Kimball模式和Inmon模式</h1>
         
 
         <div class="post-meta">
@@ -282,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-14T22:34:54+08:00">
-                2017-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T10:58:05+08:00">
+                2018-03-06
               </time>
             
 
@@ -305,8 +308,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Django/" itemprop="url" rel="index">
-                    <span itemprop="name">Django</span>
+                  <a href="/categories/DW/" itemprop="url" rel="index">
+                    <span itemprop="name">DW</span>
                   </a>
                 </span>
 
@@ -316,8 +319,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Django/ORM/" itemprop="url" rel="index">
-                    <span itemprop="name">ORM</span>
+                  <a href="/categories/DW/Design/" itemprop="url" rel="index">
+                    <span itemprop="name">Design</span>
                   </a>
                 </span>
 
@@ -358,14 +361,11 @@
       
 
       
-        <p>ManyToManyField是一种多对多关系,默认在数据库中生成关系表,也可以指定一个表作为关系表</p>
-<a id="more"></a>
-<h2 id="创建models"><a href="#创建models" class="headerlink" title="创建models"></a>创建models</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Boy</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    username = models.CharField(max_length=<span class="number">16</span>)</span><br><span class="line">    <span class="comment"># girls</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(self.id)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Girl</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">16</span>)</span><br><span class="line">    boys = models.ManyToManyField(<span class="string">'Boy'</span>, related_name=<span class="string">"girls"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(self.id)</span><br></pre></td></tr></table></figure>
-<h2 id="ManyToMany查询"><a href="#ManyToMany查询" class="headerlink" title="ManyToMany查询"></a>ManyToMany查询</h2><h3 id="正向查询"><a href="#正向查询" class="headerlink" title="正向查询"></a>正向查询</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取一个女孩对象</span></span><br><span class="line">g1 = models.Girl.objects.get(id=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取和当前女孩有关系的所有男孩</span></span><br><span class="line">g1.boys.all()                          <span class="comment">#获取全部</span></span><br><span class="line">g1.boys.filter(name=<span class="string">'xxx'</span>).count() <span class="comment">#获取个数</span></span><br></pre></td></tr></table></figure>
-<h3 id="反向查询"><a href="#反向查询" class="headerlink" title="反向查询"></a>反向查询</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b1 = models.Boy.objects.get(id=<span class="number">1</span>)</span><br><span class="line">b1.girls.all()                   <span class="comment">#获取全部</span></span><br></pre></td></tr></table></figure>
-<h3 id="连表查询"><a href="#连表查询" class="headerlink" title="连表查询"></a>连表查询</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 正向连表</span></span><br><span class="line">models.Girl.objects.all().values(<span class="string">'id'</span>,<span class="string">'name'</span>,<span class="string">'boys__username'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## 方向连表</span></span><br><span class="line">models.Boy.objects.all().values(<span class="string">'id'</span>,<span class="string">'name'</span>,<span class="string">'girls__name'</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="ManyToMany添加"><a href="#ManyToMany添加" class="headerlink" title="ManyToMany添加"></a>ManyToMany添加</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 正向</span></span><br><span class="line">g1 = models.Girl.objects.get(id=<span class="number">1</span>)</span><br><span class="line">g1.b.add(models.Boy.objects.get(id=<span class="number">1</span>))</span><br><span class="line">g1.b.add(<span class="number">1</span>)             <span class="comment">#可以直接添加ID号</span></span><br><span class="line"></span><br><span class="line">bs = models.Boy.objects.all()</span><br><span class="line">g1.b.add(*bs)               <span class="comment">#可以添加列表</span></span><br><span class="line">g1.b.add(*[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])      <span class="comment">#可以添加ID的列表</span></span><br></pre></td></tr></table></figure>
-<h2 id="ManyToMany-删除"><a href="#ManyToMany-删除" class="headerlink" title="ManyToMany 删除"></a>ManyToMany 删除</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 正向</span></span><br><span class="line">g1 = models.Girl.objects.filter(id=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除第三张表中和女孩1关联的所有关联信息</span></span><br><span class="line">g1.b.clear()        <span class="comment">#清空与gilr中id=1 关联的所有数据</span></span><br><span class="line">g1.b.remove(<span class="number">2</span>)  <span class="comment">#可以为id</span></span><br><span class="line">g1.b.remove(*[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])     <span class="comment">#可以为列表,前面加*</span></span><br></pre></td></tr></table></figure>
+        <h2 id="Inmon模式"><a href="#Inmon模式" class="headerlink" title="Inmon模式"></a>Inmon模式</h2><p>Bill Inmon的经典著作是《数据仓库》-Building the Data Warehouse.<br>他将数据仓库定义为，一个面向主题的、集成的、随时间变化的、非易变的用于支持管理的决策过程的数据集合。每个主题区域仅仅包含该主题相关的信息。数据仓库应该一次增加一个主题，并且当需要容易地访问多个主题时，应该创建以数据仓库为来源的数据集市。<br>Inmon模式设计是自顶向下的（top down）瀑布流式开发方法。数据源往往是异构的，主要的数据处理工作集中在对异构数据的清晰、类型检验、值范围检验等规则。以<strong>数据源头</strong>为导向，首先，探索性的获取尽量符合预期的数据，尝试将数据按照预期划分为不同的表需求。其次，明确数据清洗规则后通过ETL转化到DW层，这里较多UDF开发（User-Defined Function），将数据抽取为实体-关系模型。接着，可以将数据输出到DM层供BI环节使用。<br><strong>模式</strong>：采用第三范式，注重关系表<br><strong>重点</strong>：数据的清洗工作，从中抽取实体-关系<br><strong>优点</strong>：数据模型泛化，精心抽象设计，方便维护</p>
+<p><img src="/images/DW/dw_inmon.png" alt=""></p>
+<h2 id="Kimball模式"><a href="#Kimball模式" class="headerlink" title="Kimball模式"></a>Kimball模式</h2><p>Ralph Kimbal的经典著作是《数据仓库工具箱》-The Data Warehouse Toolkit.<br>他对数据仓库的定义为，数据仓库仅仅是构成它的数据集市的联合。通过使用“一致的”维，能够共同看到不同数据集市中的信息，这表示它们拥有公共定义的元素。<br>Kimball模式设计从流程上是自底向上的（bottom up），以<strong>最终任务</strong>为导向，根据业务需求对源数据进行探索，拆分出不同的表需求；然后通过ETL将数据转化到DM层（维度表+事实表）,之后一方面想BI环节输出数据，另一方面向DW层输出数据。<br><strong>模式</strong>：多为模型-星型模型<br><strong>重点</strong>：建立事实表和维度表<br><strong>优点</strong>：快速交付、敏捷迭代、对DW层不做过多复杂设计</p>
+<p><img src="/images/DW/dw_kimball.png" alt=""></p>
+
       
     </div>
     
@@ -382,9 +382,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Django/" rel="tag"># Django</a>
-          
-            <a href="/tags/ORM/" rel="tag"># ORM</a>
+            <a href="/tags/Data-Warehouse/" rel="tag"># Data Warehouse</a>
           
         </div>
       
@@ -397,8 +395,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/14/使用hexo和github构建自己的博客/" rel="next" title="使用hexo和github构建自己的博客">
-                <i class="fa fa-chevron-left"></i> 使用hexo和github构建自己的博客
+              <a href="/2018/03/02/PgSQL双向同步工具Bucardo——配置/" rel="next" title="PgSQL双向同步工具Bucardo——配置">
+                <i class="fa fa-chevron-left"></i> PgSQL双向同步工具Bucardo——配置
               </a>
             
           </div>
@@ -406,10 +404,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/18/Hexo中Mathjax配置的踩坑记录/" rel="prev" title="Hexo中Mathjax配置的踩坑记录">
-                Hexo中Mathjax配置的踩坑记录 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -545,7 +539,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建models"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x521B;&#x5EFA;models" class="headerlink" title="&#x521B;&#x5EFA;models"></a>&#x521B;&#x5EFA;models</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ManyToMany查询"><span class="nav-number">2.</span> <span class="nav-text"><a href="#ManyToMany&#x67E5;&#x8BE2;" class="headerlink" title="ManyToMany&#x67E5;&#x8BE2;"></a>ManyToMany&#x67E5;&#x8BE2;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正向查询"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x6B63;&#x5411;&#x67E5;&#x8BE2;" class="headerlink" title="&#x6B63;&#x5411;&#x67E5;&#x8BE2;"></a>&#x6B63;&#x5411;&#x67E5;&#x8BE2;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向查询"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x53CD;&#x5411;&#x67E5;&#x8BE2;" class="headerlink" title="&#x53CD;&#x5411;&#x67E5;&#x8BE2;"></a>&#x53CD;&#x5411;&#x67E5;&#x8BE2;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连表查询"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#&#x8FDE;&#x8868;&#x67E5;&#x8BE2;" class="headerlink" title="&#x8FDE;&#x8868;&#x67E5;&#x8BE2;"></a>&#x8FDE;&#x8868;&#x67E5;&#x8BE2;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ManyToMany添加"><span class="nav-number">3.</span> <span class="nav-text"><a href="#ManyToMany&#x6DFB;&#x52A0;" class="headerlink" title="ManyToMany&#x6DFB;&#x52A0;"></a>ManyToMany&#x6DFB;&#x52A0;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ManyToMany-删除"><span class="nav-number">4.</span> <span class="nav-text"><a href="#ManyToMany-&#x5220;&#x9664;" class="headerlink" title="ManyToMany &#x5220;&#x9664;"></a>ManyToMany &#x5220;&#x9664;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Inmon模式"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Inmon&#x6A21;&#x5F0F;" class="headerlink" title="Inmon&#x6A21;&#x5F0F;"></a>Inmon&#x6A21;&#x5F0F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kimball模式"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Kimball&#x6A21;&#x5F0F;" class="headerlink" title="Kimball&#x6A21;&#x5F0F;"></a>Kimball&#x6A21;&#x5F0F;</span></a></li></ol></div>
             
 
           </div>

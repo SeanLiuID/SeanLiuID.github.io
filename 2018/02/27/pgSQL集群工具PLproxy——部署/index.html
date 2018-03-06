@@ -88,7 +88,7 @@
 <meta property="og:description" content="准备工作下载安装pgsql-9.6(可根据需要版本替换命令中的版本号)123yum install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpmyum install postgresql96yum install postgresql96">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/IMG_1017.PNG">
-<meta property="og:updated_time" content="2018-03-02T07:32:02.673Z">
+<meta property="og:updated_time" content="2018-03-05T09:43:14.215Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pgSQL集群工具PLproxy——部署">
 <meta name="twitter:description" content="准备工作下载安装pgsql-9.6(可根据需要版本替换命令中的版本号)123yum install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpmyum install postgresql96yum install postgresql96">
@@ -376,9 +376,15 @@
 <h4 id="调整proxy库授权"><a href="#调整proxy库授权" class="headerlink" title="调整proxy库授权"></a>调整proxy库授权</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">proxy=<span class="comment"># GRANT ALL ON DATABASE proxy TO proxy;</span></span><br><span class="line">GRANT</span><br><span class="line">proxy=<span class="comment"># \c proxy proxy</span></span><br><span class="line">You are now connected to database <span class="string">"proxy"</span> as user <span class="string">"proxy"</span>.</span><br></pre></td></tr></table></figure>
 <p><strong><em>如果无法使用proxy用户连接，调整pg_hba.conf文件的权限设置</em></strong></p>
 <h4 id="创建digoal-schema-使用proxy用户"><a href="#创建digoal-schema-使用proxy用户" class="headerlink" title="创建digoal schema  使用proxy用户"></a>创建digoal schema  <strong><em>使用proxy用户</em></strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">proxy=&gt; CREATE SCHEMA digoal;</span><br><span class="line">CREATE SCHEMA</span><br></pre></td></tr></table></figure>
+<p><strong><em>创建schema后最好加到search_path中，否则执行\dt无法列出来</em></strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> search_path;</span><br><span class="line"><span class="keyword">SET</span> search_path <span class="keyword">TO</span> myschema,<span class="keyword">public</span>;</span><br></pre></td></tr></table></figure></p>
 <h3 id="部署节点数据库"><a href="#部署节点数据库" class="headerlink" title="部署节点数据库"></a>部署节点数据库</h3><h4 id="创建节点数据库-以两节点为例"><a href="#创建节点数据库-以两节点为例" class="headerlink" title="创建节点数据库(以两节点为例)"></a>创建节点数据库(以两节点为例)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">proxy=&gt; \c postgres postgres</span><br><span class="line">You are now connected to database <span class="string">"postgres"</span> as user <span class="string">"postgres"</span>.</span><br><span class="line">postgres=<span class="comment"># CREATE ROLE digoal NOSUPERUSER LOGIN ENCRYPTED PASSWORD 'digoal';</span></span><br><span class="line">postgres=<span class="comment"># CREATE DATABASE db0;</span></span><br><span class="line">postgres=<span class="comment"># CREATE DATABASE db1;</span></span><br></pre></td></tr></table></figure>
 <h4 id="调整权限"><a href="#调整权限" class="headerlink" title="调整权限"></a>调整权限</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">postgres=<span class="comment"># GRANT ALL ON DATABASE db0 TO digoal;</span></span><br><span class="line">postgres=<span class="comment"># GRANT ALL ON DATABASE db1 TO digoal;</span></span><br></pre></td></tr></table></figure>
 <h3 id="部署proxy-server"><a href="#部署proxy-server" class="headerlink" title="部署proxy server"></a>部署proxy server</h3><h4 id="使用超级用户在proxy数据库中创建server"><a href="#使用超级用户在proxy数据库中创建server" class="headerlink" title="使用超级用户在proxy数据库中创建server"></a>使用超级用户在proxy数据库中创建server</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">proxy=&gt; \c proxy postgres  </span><br><span class="line">You are now connected to database <span class="string">"proxy"</span> as user <span class="string">"postgres"</span>.</span><br><span class="line">proxy=<span class="comment"># </span></span><br><span class="line">CREATE SERVER cluster_srv1 FOREIGN DATA WRAPPER plproxy OPTIONS</span><br><span class="line">(connection_lifetime <span class="string">'1800'</span>,</span><br><span class="line">p0 <span class="string">'dbname=db0 hostaddr=127.0.0.1 port=5432 application_name=test'</span>,</span><br><span class="line">p1 <span class="string">'dbname=db1 hostaddr=127.0.0.1 port=5432'</span>);</span><br></pre></td></tr></table></figure>
+<p><strong><em>此处有坑</em></strong></p>
+<ul>
+<li>如果hostaddr相同，即在同一台主机上，dbname应该不同</li>
+<li>如果hostaddr不相同，则dbname要相同，否则proxy库函数执行失败，不知道why</li>
+</ul>
 <h4 id="将server权限赋予给proxy用户"><a href="#将server权限赋予给proxy用户" class="headerlink" title="将server权限赋予给proxy用户"></a>将server权限赋予给proxy用户</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">proxy=<span class="comment"># GRANT USAGE ON FOREIGN SERVER cluster_srv1 TO proxy;</span></span><br><span class="line">GRANT</span><br></pre></td></tr></table></figure>
 <h4 id="配置proxy用户的链接cluster-srv1的选项"><a href="#配置proxy用户的链接cluster-srv1的选项" class="headerlink" title="配置proxy用户的链接cluster_srv1的选项"></a>配置proxy用户的链接cluster_srv1的选项</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">proxy=<span class="comment"># CREATE USER MAPPING FOR proxy SERVER cluster_srv1 OPTIONS (user 'digoal');</span></span><br><span class="line">CREATE USER MAPPING</span><br></pre></td></tr></table></figure>
 <p>用户proxy连接到cluster_srv1时使用digoal用户连接, 这里不需要配置password, 因为我们将使用trust认证.</p>
@@ -508,7 +514,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -519,7 +525,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
