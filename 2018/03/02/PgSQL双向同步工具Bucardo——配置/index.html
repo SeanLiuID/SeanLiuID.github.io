@@ -79,14 +79,17 @@
 
 
 
+<meta name="description" content="PgSQL使用Bucardo进行主从同步准备工作安装依赖包(按顺序)12345678# yum install perl-boolean# yum install postgresql-plperl# wget http://files.directadmin.com/services/9.0/ExtUtils-MakeMaker-6.31.tar.gz# wget http://search.c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PgSQL双向同步工具Bucardo——配置">
 <meta property="og:url" content="http://yoursite.com/2018/03/02/PgSQL双向同步工具Bucardo——配置/index.html">
 <meta property="og:site_name" content="Sean&#39;s Notes">
+<meta property="og:description" content="PgSQL使用Bucardo进行主从同步准备工作安装依赖包(按顺序)12345678# yum install perl-boolean# yum install postgresql-plperl# wget http://files.directadmin.com/services/9.0/ExtUtils-MakeMaker-6.31.tar.gz# wget http://search.c">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-02T02:17:48.866Z">
+<meta property="og:updated_time" content="2018-03-08T13:06:28.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PgSQL双向同步工具Bucardo——配置">
+<meta name="twitter:description" content="PgSQL使用Bucardo进行主从同步准备工作安装依赖包(按顺序)12345678# yum install perl-boolean# yum install postgresql-plperl# wget http://files.directadmin.com/services/9.0/ExtUtils-MakeMaker-6.31.tar.gz# wget http://search.c">
 
 
 
@@ -321,7 +324,12 @@
       
 
       
-        
+        <h1 id="PgSQL使用Bucardo进行主从同步"><a href="#PgSQL使用Bucardo进行主从同步" class="headerlink" title="PgSQL使用Bucardo进行主从同步"></a>PgSQL使用Bucardo进行主从同步</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="安装依赖包-按顺序"><a href="#安装依赖包-按顺序" class="headerlink" title="安装依赖包(按顺序)"></a>安装依赖包(按顺序)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum install perl-boolean</span></span><br><span class="line"><span class="comment"># yum install postgresql-plperl</span></span><br><span class="line"><span class="comment"># wget http://files.directadmin.com/services/9.0/ExtUtils-MakeMaker-6.31.tar.gz</span></span><br><span class="line"><span class="comment"># wget http://search.cpan.org/CPAN/authors/id/E/EX/EXODIST/Test-Simple-1.302125.tar.gz</span></span><br><span class="line"><span class="comment"># wget http://search.cpan.org/CPAN/authors/id/J/JP/JPEACOCK/version-0.9918.tar.gz</span></span><br><span class="line"><span class="comment"># wget http://www.cpan.org/authors/id/T/TU/TURNSTEP/DBD-Pg-3.5.0.tar.gz   </span></span><br><span class="line"><span class="comment"># wget http://search.cpan.org/CPAN/authors/id/T/TI/TIMB/DBI-1.630.tar.gz</span></span><br><span class="line"><span class="comment"># wget http://bucardo.org/downloads/dbix_safe.tar.gz</span></span><br></pre></td></tr></table></figure>
+<h3 id="安装Bucardo"><a href="#安装Bucardo" class="headerlink" title="安装Bucardo"></a>安装Bucardo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wget http://bucardo.org/downloads/Bucardo-5.4.1.tar.gz</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>以上perl模块安装步骤</em></strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tar xvf (...)</span></span><br><span class="line"><span class="comment"># cd (...)</span></span><br><span class="line"><span class="comment"># perl Makefile.PL</span></span><br><span class="line"><span class="comment"># make</span></span><br><span class="line"><span class="comment"># make install</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><p>在系统用户的home目录下创建.bucardorc文件，内容如下：<br>log_conflict_file    = /home/devops/bucardo/log/bucardo_conflict.log<br>piddir                = /home/devops/bucardo/run<br>reason_file            = /home/devops/bucardo/log/bucardo.restart.reason.log<br>warning_file        = /home/devops/bucardo/log/bucardo.warning.log<br>syslog_facility        = LOG_LOCAL</p>
+<h3 id="运行bucardo-install（-user-local-bin）"><a href="#运行bucardo-install（-user-local-bin）" class="headerlink" title="运行bucardo install（/user/local/bin）"></a>运行bucardo install（/user/local/bin）</h3><h2 id="安装perl模块过程中报错解决"><a href="#安装perl模块过程中报错解决" class="headerlink" title="安装perl模块过程中报错解决"></a>安装perl模块过程中报错解决</h2><h3 id="出现Could-not-open-‘’-No-such-file-or-directory-at-lib-ExtUtils-MM-Unix-pm"><a href="#出现Could-not-open-‘’-No-such-file-or-directory-at-lib-ExtUtils-MM-Unix-pm" class="headerlink" title="出现Could not open ‘’: No such file or directory at lib/ExtUtils/MM_Unix.pm"></a>出现Could not open ‘’: No such file or directory at lib/ExtUtils/MM_Unix.pm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum install perl-ExtUtils-MakeMaker</span></span><br></pre></td></tr></table></figure>
+<h3 id="出现Can’t-locate-Data-Dumper-pm-in-INC"><a href="#出现Can’t-locate-Data-Dumper-pm-in-INC" class="headerlink" title="出现Can’t locate Data/Dumper.pm in @INC"></a>出现Can’t locate Data/Dumper.pm in @INC</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum install ‘perl(Data::Dumper)’</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -407,8 +415,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -427,7 +444,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -438,7 +455,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -449,7 +466,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -474,6 +491,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PgSQL使用Bucardo进行主从同步"><span class="nav-number">1.</span> <span class="nav-text"><a href="#PgSQL&#x4F7F;&#x7528;Bucardo&#x8FDB;&#x884C;&#x4E3B;&#x4ECE;&#x540C;&#x6B65;" class="headerlink" title="PgSQL&#x4F7F;&#x7528;Bucardo&#x8FDB;&#x884C;&#x4E3B;&#x4ECE;&#x540C;&#x6B65;"></a>PgSQL&#x4F7F;&#x7528;Bucardo&#x8FDB;&#x884C;&#x4E3B;&#x4ECE;&#x540C;&#x6B65;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x51C6;&#x5907;&#x5DE5;&#x4F5C;" class="headerlink" title="&#x51C6;&#x5907;&#x5DE5;&#x4F5C;"></a>&#x51C6;&#x5907;&#x5DE5;&#x4F5C;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖包-按顺序"><span class="nav-number">1.1.1.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;&#x4F9D;&#x8D56;&#x5305;-&#x6309;&#x987A;&#x5E8F;" class="headerlink" title="&#x5B89;&#x88C5;&#x4F9D;&#x8D56;&#x5305;(&#x6309;&#x987A;&#x5E8F;)"></a>&#x5B89;&#x88C5;&#x4F9D;&#x8D56;&#x5305;(&#x6309;&#x987A;&#x5E8F;)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Bucardo"><span class="nav-number">1.1.2.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;Bucardo" class="headerlink" title="&#x5B89;&#x88C5;Bucardo"></a>&#x5B89;&#x88C5;Bucardo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;" class="headerlink" title="&#x914D;&#x7F6E;"></a>&#x914D;&#x7F6E;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建配置文件"><span class="nav-number">1.2.1.</span> <span class="nav-text"><a href="#&#x521B;&#x5EFA;&#x914D;&#x7F6E;&#x6587;&#x4EF6;" class="headerlink" title="&#x521B;&#x5EFA;&#x914D;&#x7F6E;&#x6587;&#x4EF6;"></a>&#x521B;&#x5EFA;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行bucardo-install（-user-local-bin）"><span class="nav-number">1.2.2.</span> <span class="nav-text"><a href="#&#x8FD0;&#x884C;bucardo-install&#xFF08;-user-local-bin&#xFF09;" class="headerlink" title="&#x8FD0;&#x884C;bucardo install&#xFF08;/user/local/bin&#xFF09;"></a>&#x8FD0;&#x884C;bucardo install&#xFF08;/user/local/bin&#xFF09;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装perl模块过程中报错解决"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;perl&#x6A21;&#x5757;&#x8FC7;&#x7A0B;&#x4E2D;&#x62A5;&#x9519;&#x89E3;&#x51B3;" class="headerlink" title="&#x5B89;&#x88C5;perl&#x6A21;&#x5757;&#x8FC7;&#x7A0B;&#x4E2D;&#x62A5;&#x9519;&#x89E3;&#x51B3;"></a>&#x5B89;&#x88C5;perl&#x6A21;&#x5757;&#x8FC7;&#x7A0B;&#x4E2D;&#x62A5;&#x9519;&#x89E3;&#x51B3;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#出现Could-not-open-‘’-No-such-file-or-directory-at-lib-ExtUtils-MM-Unix-pm"><span class="nav-number">1.3.1.</span> <span class="nav-text"><a href="#&#x51FA;&#x73B0;Could-not-open-&#x2018;&#x2019;-No-such-file-or-directory-at-lib-ExtUtils-MM-Unix-pm" class="headerlink" title="&#x51FA;&#x73B0;Could not open &#x2018;&#x2019;: No such file or directory at lib/ExtUtils/MM_Unix.pm"></a>&#x51FA;&#x73B0;Could not open &#x2018;&#x2019;: No such file or directory at lib/ExtUtils/MM_Unix.pm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出现Can’t-locate-Data-Dumper-pm-in-INC"><span class="nav-number">1.3.2.</span> <span class="nav-text"><a href="#&#x51FA;&#x73B0;Can&#x2019;t-locate-Data-Dumper-pm-in-INC" class="headerlink" title="&#x51FA;&#x73B0;Can&#x2019;t locate Data/Dumper.pm in @INC"></a>&#x51FA;&#x73B0;Can&#x2019;t locate Data/Dumper.pm in @INC</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
